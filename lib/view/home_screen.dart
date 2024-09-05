@@ -39,7 +39,27 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
       appBar: AppBar(
-        title: const Text("Lista de Cursos"),
+        title: Center(
+          child: const Text(
+            "Lista de Cursos",
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.white, // Cor do texto
+            ),
+          ),
+        ),
+        backgroundColor: Color.fromARGB(255, 7, 100, 49),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              color: Colors.white, // Cor do ícone do menu
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
       ),
       body: FutureBuilder<List<CourseEntity>>(
         future: futureCourses,
