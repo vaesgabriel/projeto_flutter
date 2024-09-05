@@ -21,7 +21,7 @@ class _FormNewCourseState extends State<FormNewCourse> {
     if (formKey.currentState!.validate()) {
       try {
         final dateStr = textStartAtController.text;
-        final date = DateTime.tryParse(dateStr); // Converte String para DateTime
+        final date = DateTime.tryParse(dateStr);
 
         final course = CourseEntity(
           name: textNameController.text,
@@ -82,7 +82,6 @@ class _FormNewCourseState extends State<FormNewCourse> {
                   if (value == null || value.isEmpty) {
                     return "Campo obrigatório";
                   }
-                  // Validação simples para o formato de data
                   if (DateTime.tryParse(value) == null) {
                     return "Data inválida";
                   }

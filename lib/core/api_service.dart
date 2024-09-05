@@ -9,10 +9,6 @@ class ApiService {
     try {
       final response = await http.get(Uri.parse(url));
 
-      // Adicione um log para depuração
-      print('Status Code: ${response.statusCode}');
-      print('Response Body: ${response.body}');
-
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
         return data;
@@ -22,7 +18,7 @@ class ApiService {
         throw Exception('Falha ao carregar feriados: $errorMessage');
       }
     } catch (e) {
-      print('Erro: $e'); // Log do erro
+      print('Erro: $e');
       throw Exception('Falha ao carregar feriados: $e');
     }
   }

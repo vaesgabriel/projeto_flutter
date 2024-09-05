@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:meuapp/controller/course_controller.dart';
 import 'package:meuapp/model/course_model.dart';
-import 'package:meuapp/view/form_edit_course.dart'; // Importe o FormEditCourse
+import 'package:meuapp/view/form_edit_course.dart';
 import 'package:meuapp/view/form_new_course.dart';
 import 'package:meuapp/view/menu.dart';
 

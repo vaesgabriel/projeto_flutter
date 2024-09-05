@@ -2,7 +2,7 @@ class CourseEntity {
   String? id;
   String? name;
   String? description;
-  DateTime? startAt; // Mantido como DateTime
+  DateTime? startAt;
 
   CourseEntity({
     this.id,
@@ -24,7 +24,7 @@ class CourseEntity {
     return {
       'name': courseEntity.name,
       'description': courseEntity.description,
-      'startAt': courseEntity.startAt?.toIso8601String(), // Converte DateTime para String
+      'startAt': courseEntity.startAt?.toIso8601String(),
     };
   }
 }

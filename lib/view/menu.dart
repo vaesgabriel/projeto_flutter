@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meuapp/view/login_screen.dart';
 
 class MenuDrawer extends StatelessWidget {
   const MenuDrawer({super.key});
@@ -12,7 +11,7 @@ class MenuDrawer extends StatelessWidget {
         children: [
           const DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.deepPurple,
+              color: Color.fromARGB(255, 7, 100, 49),
             ),
             child: Text(
               "Menu",
@@ -27,7 +26,7 @@ class MenuDrawer extends StatelessWidget {
             title: const Text("Cursos"),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, '/home'); // Navegar para a tela de cursos
+              Navigator.pushNamed(context, '/home');
             },
           ),
           ListTile(
@@ -35,20 +34,18 @@ class MenuDrawer extends StatelessWidget {
             title: const Text("Feriados"),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, '/holidays'); // Navegar para a tela de feriados
+              Navigator.pushNamed(context, '/holidays');
             },
           ),
           ListTile(
             leading: const Icon(Icons.exit_to_app),
             title: const Text("Sair"),
             onTap: () async {
-              // Implementar lógica de logout se necessário, como limpar o estado de autenticação
 
-              // Exemplo: Navegar para a tela de login e limpar a pilha de navegação
               Navigator.pushNamedAndRemoveUntil(
                 context,
-                '/login', // Rota para a tela de login
-                (route) => false, // Remove todas as rotas anteriores
+                '/login',
+                (route) => false,
               );
             },
           ),

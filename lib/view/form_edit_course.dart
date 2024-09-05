@@ -39,9 +39,9 @@ class _FormEditCourseState extends State<FormEditCourse> {
           id: widget.course.id,
           name: textNameController.text,
           description: textDescriptionController.text,
-          startAt: widget.course.startAt, // Mantém a data original
+          startAt: widget.course.startAt,
         );
-        await controller.updateCourse(updatedCourse); // Usando o método update
+        await controller.updateCourse(updatedCourse);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Curso atualizado com sucesso.")),
         );
