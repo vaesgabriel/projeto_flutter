@@ -2,34 +2,29 @@ class CourseEntity {
   String? id;
   String? name;
   String? description;
-  String? startAt;
+  DateTime? startAt; // Mantido como DateTime
 
   CourseEntity({
     this.id,
     this.name,
     this.description,
-    this.startAt
+    this.startAt,
   });
 
-  static CourseEntity fromJson(Map<String, dynamic> map){
+  static CourseEntity fromJson(Map<String, dynamic> map) {
     return CourseEntity(
       id: map['id'],
       name: map['name'],
       description: map['description'],
-      startAt: map['startAt'],
+      startAt: map['startAt'] != null ? DateTime.parse(map['startAt']) : null,
     );
   }
 
-
   static Map<String, dynamic> toJson(CourseEntity courseEntity) {
-    Map<String, dynamic> json = {
+    return {
       'name': courseEntity.name,
       'description': courseEntity.description,
-      'startAt': courseEntity.startAt
+      'startAt': courseEntity.startAt?.toIso8601String(), // Converte DateTime para String
     };
-    return json;
   }
 }
-
-
-  

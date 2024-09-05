@@ -9,7 +9,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +22,13 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset("assets/logotipo_firma.png", 
-              width: MediaQuery.sizeOf(context).width * 0.5),
+              Image.asset(
+                "assets/logotipo_firma.png",
+                width: MediaQuery.of(context).size.width * 0.5,
+              ),
               TextFormField(
                 validator: (value) {
-                  if(value!.isEmpty) {
+                  if (value == null || value.isEmpty) {
                     return "Email obrigatório";
                   }
                   return null;
@@ -34,37 +36,35 @@ class _LoginScreenState extends State<LoginScreen> {
                 maxLength: 50,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
-                  hintText: "Insira seu email"
+                  hintText: "Insira seu email",
                 ),
               ),
-              SizedBox(
-                height: 15,
-                ),
+              const SizedBox(height: 15),
               TextFormField(
+                obscureText: true,
                 validator: (value) {
-                  if(value!.isEmpty) {
+                  if (value == null || value.isEmpty) {
                     return "Senha obrigatória";
                   }
                   return null;
                 },
                 maxLength: 10,
                 decoration: const InputDecoration(
-                  hintText: "Insira sua senha"
+                  hintText: "Insira sua senha",
                 ),
               ),
-              SizedBox(
-                height: 15,
-                ),
+              const SizedBox(height: 15),
               SizedBox(
                 height: 48,
-                width: MediaQuery.sizeOf(context).width,
+                width: MediaQuery.of(context).size.width,
                 child: ElevatedButton(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      Navigator.pushReplacement(context, 
-                      MaterialPageRoute(
-                        builder: (context) => HomeScreen(),
-                      ),
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HomeScreen(),
+                        ),
                       );
                     }
                   },

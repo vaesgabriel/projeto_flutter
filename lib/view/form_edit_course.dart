@@ -2,40 +2,53 @@ import 'package:flutter/material.dart';
 import 'package:meuapp/controller/course_controller.dart';
 import 'package:meuapp/model/course_model.dart';
 
-class FormNewCourse extends StatefulWidget {
-  const FormNewCourse({super.key});
+class FormEditCourse extends StatefulWidget {
+  final CourseEntity course;
+
+  const FormEditCourse({required this.course, super.key});
 
   @override
-  State<FormNewCourse> createState() => _FormNewCourseState();
+  State<FormEditCourse> createState() => _FormEditCourseState();
 }
 
-class _FormNewCourseState extends State<FormNewCourse> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+class _FormEditCourseState extends State<FormEditCourse> {
+  final formKey = GlobalKey<FormState>();
   final CourseController controller = CourseController();
 
-  final TextEditingController textNameController = TextEditingController();
-  final TextEditingController textDescriptionController = TextEditingController();
-  final TextEditingController textStartAtController = TextEditingController();
+  late TextEditingController textNameController;
+  late TextEditingController textDescriptionController;
 
-  Future<void> postNewCourse() async {
+  @override
+  void initState() {
+    super.initState();
+    textNameController = TextEditingController(text: widget.course.name ?? '');
+    textDescriptionController = TextEditingController(text: widget.course.description ?? '');
+  }
+
+  @override
+  void dispose() {
+    textNameController.dispose();
+    textDescriptionController.dispose();
+    super.dispose();
+  }
+
+  Future<void> updateCourse() async {
     if (formKey.currentState!.validate()) {
       try {
-        final dateStr = textStartAtController.text;
-        final date = DateTime.tryParse(dateStr); // Converte String para DateTime
-
-        final course = CourseEntity(
+        final updatedCourse = CourseEntity(
+          id: widget.course.id,
           name: textNameController.text,
           description: textDescriptionController.text,
-          startAt: date,
+          startAt: widget.course.startAt, // Mantém a data original
         );
-        await controller.postNewCourse(course);
+        await controller.updateCourse(updatedCourse); // Usando o método update
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Dados salvos com sucesso.")),
+          SnackBar(content: Text("Curso atualizado com sucesso.")),
         );
         Navigator.pop(context);
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Erro ao salvar dados: $e")),
+          SnackBar(content: Text("Erro ao atualizar curso: $e")),
         );
       }
     }
@@ -45,7 +58,7 @@ class _FormNewCourseState extends State<FormNewCourse> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Formulário de Curso"),
+        title: const Text("Editar Curso"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -75,25 +88,9 @@ class _FormNewCourseState extends State<FormNewCourse> {
                 },
                 decoration: const InputDecoration(labelText: 'Descrição do Curso'),
               ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: textStartAtController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Campo obrigatório";
-                  }
-                  // Validação simples para o formato de data
-                  if (DateTime.tryParse(value) == null) {
-                    return "Data inválida";
-                  }
-                  return null;
-                },
-                decoration: const InputDecoration(labelText: 'Data de Início'),
-                keyboardType: TextInputType.datetime,
-              ),
               const SizedBox(height: 24),
               ElevatedButton(
-                onPressed: postNewCourse,
+                onPressed: updateCourse,
                 child: const Text("Salvar"),
               ),
             ],
